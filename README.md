@@ -1,8 +1,32 @@
-# Indicators-to-assess-the-heat-resilience-of-buildings
+# Indicators-to-assess-the-heat-resilience-of-buildings - 🌞
 Novel diagnostic analytics to audit the passive performance of buildings using real monitored data
 
-# List of indicators
+## Overview
+
+bla,bla,bla
+
+#### Install dependencies (use Python3)
+```python
+pip install -r requirements.txt
+```
+
+## How to obtain the **indicators**?
+
+First, collect required data for the analysis: 
+
+1. Indoor:  
+2. Outoor: 
+
+Second, prepare the data: 
+
+Third, results and analysis. You resulting values will be shown as follows:  
 
 1. BSOI
+
+  
+![CSV example](https://raw.githubusercontent.com/Karlheinzniebuhr/the-weather-scraper/master/resources/csv.JPG)
+
 2. Heat map
+
+
 3. ACH

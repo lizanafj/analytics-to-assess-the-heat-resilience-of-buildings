@@ -26,7 +26,7 @@ Third, results and analysis. You resulting values will be shown as follows:
   
 ![CSV example](https://raw.githubusercontent.com/Karlheinzniebuhr/the-weather-scraper/master/resources/csv.JPG)
 
-![CSV example](https://raw.githubusercontent.com/lizanafj/Indicators-to-assess-the-heat-resilience-of-buildingsr/resources/1_SBOI.JPG)
+![CSV example](https://github.com/lizanafj/Indicators-to-assess-the-heat-resilience-of-buildings/blob/master/resources/1_SBOI.jpg)
 
 2. Heat map
 

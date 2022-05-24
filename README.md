@@ -13,6 +13,12 @@ Second, the indoor environment is diagnosed through a heat balance map that divi
 Third, the air changes (ACH), associated with ventilation and infiltration per thermal stage, are calculated using the CO2-based decay method. 
 
 
+More information about this approach is detaled in the following scientific article: 
+
+** reference **
+
+
+
 #### Install dependencies (use Python3)
 
 ```python
@@ -33,7 +39,9 @@ Second, prepare the data:
 
 	-See example in folder /data. 
 
-Third, run the three methods. 
+Third, run the three methods using the functions defined here: 
+
+	-diagnostic indicators.py
 
 
 ### 1. Analysis of the overheating situation - Seasonal building overheating index (SBOI): 

@@ -1,4 +1,4 @@
-# Indicators to assess the heat resilience of buildings - 🌞
+# Indicators to assess the heat resilience of buildings 🌞
 
 Novel diagnostic analytics to audit the passive building performance using real long-term monitoring data obtained through indoor and outdoor IoT sensors.
 
@@ -53,21 +53,21 @@ In an overheated indoor environment, SBOI can show different scenarios (Fig. b):
 
 ### 2. Analysis of building thermal stages - Heat balance map
 
-The passive thermal performance of building is analysed through four thermal stages related to the positive or negative influence of total heat flux and the ventilation and infiltration load.
+The passive thermal performance of the building is analysed through four thermal stages related to the positive or negative influence of total heat flux and the ventilation and infiltration load.
 These stages can be labelled according to the three main action groups for the passive conditioning of buildings:
 
-	- Stage 1. Heat modulation. This shows cooling periods due to building thermal mass (or sporadic AC operation)
+	- Stage 1. Heat modulation. This stage shows cooling periods due to building thermal mass (or sporadic AC operation)
 	- Stage 2. Solar and heat gains 1/2. This stage illustrates temperature increasing as a result of solar and heat gains.
-	- Stage 3. Solar and heat gains 2/2. Stage 3 illustrates temperature increasing despite the lower outdoor temperature. In this stage, heat fluxes from the building surface and internal heat gains are predominant. 
+	- Stage 3. Solar and heat gains 2/2. This stage illustrates temperature increasing despite the lower outdoor temperature. In this stage, heat fluxes from the building surface and internal heat gains are predominant. 
 	- Stage 4. Heat dissipation. This stage 4 is associated with cooling periods mainly due to ventilative cooling (or sporadic AC operation)
 
 
 ![CSV example](https://github.com/lizanafj/Indicators-to-assess-the-heat-resilience-of-buildings/blob/master/resources/2_Thermalbuildingstages.jpg )
 
 
-### 3. Analysis of ACH through CO2-based decay method
+### 3. Analysis of air change rates (ACH, h-1) through CO2-based decay method
 
-This method uses indoor CO2 concentrations in the indoor environment to calculate air change rate (ACH, h-1) related to ventilation and air infiltration.
+This method uses indoor CO2 concentrations in the indoor environment to calculate the air change rate (ACH, h-1) related to ventilation and air infiltration.
 
 ![CSV example](https://github.com/lizanafj/Indicators-to-assess-the-heat-resilience-of-buildings/blob/master/resources/3_ACHmethod.png )
 

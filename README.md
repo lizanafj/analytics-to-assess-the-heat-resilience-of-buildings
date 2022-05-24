@@ -15,7 +15,7 @@ Third, the air changes (ACH), associated with ventilation and infiltration per t
 
 More information about this approach is detaled in the following scientific article: 
 
-** reference **
+**reference**
 
 
 

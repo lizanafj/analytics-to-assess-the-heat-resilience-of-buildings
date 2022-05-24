@@ -4,6 +4,43 @@ Created on Sun May 22 19:06:11 2022
 
 @author: Jesus Lizana
 
+Diagnostic analytics to audit the passive building performance. It involves three indicators: 
+    
+    1. Heat resilience is characterised by an overheating index (BSOI, %);
+    
+    2. Indoor environment is diagnosed through a heat balance map that divides building performance into four thermal stages 
+    related to the positive or negative influence of total heat flux and the ventilation and infiltration load; 
+    
+    3. Air change rates (ACHs) per thermal stage are calculated using the CO2-based decay method.   
+
+        
+Python version and libraries: 
+    
+    Python 3.9.7 
+    Libraries: 
+        pandas
+        numpy
+        matplotlib
+        os
+        scipy
+        
+VERSIONS: 
+v1_2022.05.23_First version
+
+
+
+
+INPUT DATA REQUIRED:
+    Examples of data are provided in the folder: /data
+    
+    Columns: datetime,indoor_CO2,indoor_Temp,indoor_RH,outdoor_Temp
+    
+    Time resolution: 1-hour resolution - for lower resolution some functions need modifications
+
+OUTPUT DATA: 
+    
+ 
+    
 
 """
 
@@ -32,7 +69,13 @@ df_home = pd.read_csv('home3.csv', index_col = "datetime", parse_dates=True)
 
 #%%
 
+##############################################################################
+
 # 1 - Analysis of the overheating situation - BSOI (%, from 0 to 100%) 
+
+##############################################################################
+
+#Function to calculate overheating indicator: BSOI - building seasonal overheating index, %
 
 def BSOI(data):
     
@@ -50,16 +93,22 @@ def BSOI(data):
 
 #%%
 
+#Result of BSOI: 
+    
 home2_BSOI = BSOI(df_home)
 
 
 #%%
 
+##############################################################################
+
 # 2 - Analysis of building thermal stages
 
+##############################################################################
 
-#montamos el dataframe total con los parametros que necesitamos
-def thermal_stages(data):   #no le eches cuenta a los nombres de las funciones, aunque ponga Temp puede calcular mas cosas
+#Function to calculate required parameters to define thermal stages of building 
+
+def thermal_stages(data):   
 
     df = data.copy()
     
@@ -69,6 +118,8 @@ def thermal_stages(data):   #no le eches cuenta a los nombres de las funciones, 
     df=df[:-1] #eliminate last value
        
     return df
+
+#Function to calculate the percentage of time in which the building is operating in each thermal stage
 
 def thermal_stages_summary(data):
     
@@ -97,6 +148,8 @@ def thermal_stages_summary(data):
   
 #%%
 
+#Result of thermal stages analysis: 
+
 df_home_1 = thermal_stages(df_home)
   
 home2_thermalstages_summary = thermal_stages_summary(df_home_1)
@@ -104,7 +157,17 @@ home2_thermalstages_summary = thermal_stages_summary(df_home_1)
 
 #%%
 
+##############################################################################
+
 # 3 - Analysis of ACH through CO2-based decay method
+
+##############################################################################
+
+
+
+#Function to calculate ACH based on the CO2-based decay method
+
+#add limit and slope as input parameters
 
 def ACH(data):
     
@@ -160,7 +223,8 @@ def ACH(data):
     return df
 
 
-#valor ACH medio de cada cuadrante
+#Function to calculate the mean ACH (and number of points and std) per thermal stage
+
 def ACH_summary(data):
     
     #mean ACH value per stage
@@ -195,7 +259,8 @@ def ACH_summary(data):
 
 #%%
 
-
+#Result of ACH analysis: 
+    
 df_home_2 = ACH(df_home)
 
 home_ACH_summary = ACH_summary(df_home_2)
@@ -204,7 +269,13 @@ home_ACH_summary = ACH_summary(df_home_2)
 
 #%%
 
-# Summary of key performance indicators (KPI) to characterise the passive performance of buildings
+
+##############################################################################
+
+# SUMMARY OF INDICATORS TO CHARACTERISE THE PASSIVE PERFORMANCE OF BUILDINGS
+
+##############################################################################
+
 
 summary = pd.concat([home2_thermalstages_summary,home_ACH_summary],axis=1)
 
@@ -212,7 +283,15 @@ summary = pd.concat([home2_thermalstages_summary,home_ACH_summary],axis=1)
 
 #%%
 
-# heat balance map to audit passive building performance through four stages. 
+
+##############################################################################
+
+# FIGURES 
+
+##############################################################################
+
+
+#Figure 1. Heat balance map to audit passive building performance through four stages, including all calculated indicators per thermal stage
 
 #Building overheating
 BSOI_value= "Building seasonal overheating index: " +str(home2_BSOI)+" %"
@@ -236,8 +315,8 @@ plt.style.use('ggplot') #'seaborn-notebook'
 
 
 
-plt.title('Diagnostic analytics to audit the builing performance',y=1.08,loc="left",fontsize=18, pad=15)
-plt.suptitle(BSOI_value, y=0.945, x=0.365,fontsize=15)
+plt.title('Diagnostic analytics to audit the passive builing performance',y=1.08,loc="left",fontsize=17, pad=15)
+plt.suptitle(BSOI_value, y=0.945, x=0.357,fontsize=15)
 
 plt.plot(df_home_1['grad'],df_home_1['Tout_Tint'],'o', alpha=0.2,color="royalblue")
 ax = plt.gca()
@@ -280,7 +359,7 @@ plt.show()
 #%%
 
 
-#figura de violin del ACH
+# Figure 2. Violin plot of ACH rates
 
 
 plt.rcParams["figure.figsize"] = (4,6)
@@ -305,6 +384,8 @@ plt.show()
 
 #%%
 
+# Figure 3. Comparison of ACH points with CO2 concentrations throughout the monitored period
+
 df_home_3 = df_home_2.truncate(before='2021-06-11', after='2021-06-12')
 
 fig, ax = plt.subplots(figsize =(10, 4))
@@ -314,11 +395,9 @@ ax = df_home_3['ACH'].plot(marker='D', markersize=8,color="royalblue",markeredge
 ax.set_ylim(0,3)
 ax.set_ylabel('ACH (h-1)')
 
-
 ax1 = df_home_3['indoor_CO2'].plot(secondary_y=True, color='gray',linestyle="--",linewidth=1,zorder=50)
 ax1.set_ylabel("CO2 concentration (ppm)")
 ax1.set_ylim(500,2000)
-
 
 ax.set_xlabel('datetime')
 plt.margins(x=0.01)

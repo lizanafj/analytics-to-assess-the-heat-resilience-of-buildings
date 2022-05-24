@@ -26,11 +26,12 @@ Third, results and analysis. You resulting values will be shown as follows:
   
 ![CSV example](https://raw.githubusercontent.com/Karlheinzniebuhr/the-weather-scraper/master/resources/csv.JPG)
 
-![CSV example](https://github.com/lizanafj/Indicators-to-assess-the-heat-resilience-of-buildings/blob/master/resources/1_SBOI.jpg )
+![CSV example](https://github.com/lizanafj/Indicators-to-assess-the-heat-resilience-of-buildings/blob/master/resources/1_SBOI_1.jpg )
+![CSV example](https://github.com/lizanafj/Indicators-to-assess-the-heat-resilience-of-buildings/blob/master/resources/2_Thermal building stages.jpg )
+![CSV example](https://github.com/lizanafj/Indicators-to-assess-the-heat-resilience-of-buildings/blob/master/resources/3_ACHmethod.png )
+![CSV example](https://github.com/lizanafj/Indicators-to-assess-the-heat-resilience-of-buildings/blob/master/resources/4_scriptresults.png )
 
-<img src="hhttps://github.com/lizanafj/Indicators-to-assess-the-heat-resilience-of-buildings/blob/master/resources/1_SBOI.jpg" width="400" height="400">
 
-<img src="hhttps://github.com/lizanafj/Indicators-to-assess-the-heat-resilience-of-buildings/blob/master/resources/1_SBOI.jpg" width=70% height=70%>
 
 2. Heat map
 

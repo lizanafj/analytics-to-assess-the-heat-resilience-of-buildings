@@ -4,7 +4,7 @@ Created on Sun May 22 19:06:11 2022
 
 @author: Jesus Lizana
 
-Diagnostic analytics to audit the passive building performance. It involves three indicators: 
+Diagnostic analytics to audit the passive building performance. It involves three methods: 
     
     1. Heat resilience is characterised by an overheating index (BSOI, %);
     
@@ -39,7 +39,9 @@ INPUT DATA REQUIRED:
 
 OUTPUT DATA: 
     
- 
+    Figure 1. Heat balance map summarising all indicators
+    Figure 2. Violin plot of ACH values
+    Figure 3. Comparison of ACH values with CO2 concentrations
     
 
 """
@@ -64,7 +66,7 @@ print(os.listdir())
 #%%
 
 #Read input data
-df_home = pd.read_csv('home3.csv', index_col = "datetime", parse_dates=True) 
+df_home = pd.read_csv('home2.csv', index_col = "datetime", parse_dates=True) 
 
 
 #%%
@@ -163,18 +165,19 @@ home2_thermalstages_summary = thermal_stages_summary(df_home_1)
 
 ##############################################################################
 
-
-
 #Function to calculate ACH based on the CO2-based decay method
 
-#add limit and slope as input parameters
+#Inputs
+#baseline: minimum CO2 value expected
+#slope: minimum CO2 slope (ppm/h) to avoid occupancy periods
+#starting point (ppm): initial CO2 value (ppm) > starting point (ppm)
 
-def ACH(data):
+def ACH(data,baseline, slope,starting):
     
     df = data.copy()
     
     #if CO2 concentration < 500 = null - baseline for calculation
-    df.indoor_CO2[(df['indoor_CO2']<=500)]=500
+    df.indoor_CO2[(df['indoor_CO2']<=baseline)]=baseline
     
     #Thermal stages
     df['grad']=-df['indoor_Temp'].diff(periods=-1)
@@ -201,7 +204,7 @@ def ACH(data):
         
         else:
             
-            if  df.loc[i,'grad_co2']>=-100 or df.loc[i,'indoor_CO2']<1000:
+            if  df.loc[i,'grad_co2']>=slope or df.loc[i,'indoor_CO2']<starting:
                 ACH_i=0
                 ACH_total=np.append(ACH_total,ACH_i)
             
@@ -259,9 +262,13 @@ def ACH_summary(data):
 
 #%%
 
+baseline=500
+slope=-100
+starting=1000
+
 #Result of ACH analysis: 
     
-df_home_2 = ACH(df_home)
+df_home_2 = ACH(df_home,baseline,slope,starting)
 
 home_ACH_summary = ACH_summary(df_home_2)
 
@@ -298,16 +305,20 @@ BSOI_value= "Building seasonal overheating index: " +str(home2_BSOI)+" %"
 
 #Stage 1: heat modulation. 
 stage1= "Stage 1: " +str(home2_thermalstages_summary["Percentage_%"].iloc[0])+" %"
-ACH_1= "Mean ACH: " +str(home_ACH_summary["ACH_mean"].iloc[0])+" $h^{-1}$"
+ACH_1= "Mean ACH: " +str(home_ACH_summary["ACH_mean"].iloc[0])+" $h^{-1}$" 
+ACH_1a = " (n: "+str(home_ACH_summary["ACH_points"].iloc[0])+"; std: ±"+str(home_ACH_summary["ACH_std"].iloc[0])+")"
 #Stage 2: solar and heat gains (1/2); 
 stage2= "Stage 2: " +str(home2_thermalstages_summary["Percentage_%"].iloc[1])+" %"
 ACH_2= "Mean ACH: " +str(home_ACH_summary["ACH_mean"].iloc[1])+" $h^{-1}$"
+ACH_2a = " (n: "+str(home_ACH_summary["ACH_points"].iloc[1])+"; std: ±"+str(home_ACH_summary["ACH_std"].iloc[1])+")"
 #stage 3: solar and heat gains (2/2); 
 stage3= "Stage 3: " +str(home2_thermalstages_summary["Percentage_%"].iloc[2])+" %"
 ACH_3= "Mean ACH: " +str(home_ACH_summary["ACH_mean"].iloc[2])+" $h^{-1}$"
+ACH_3a = " (n: "+str(home_ACH_summary["ACH_points"].iloc[2])+"; std: ±"+str(home_ACH_summary["ACH_std"].iloc[2])+")"
 #stage 4: heat dissipation.
 stage4= "Stage 4: " +str(home2_thermalstages_summary["Percentage_%"].iloc[3])+" %"
 ACH_4= "Mean ACH: " +str(home_ACH_summary["ACH_mean"].iloc[3])+" $h^{-1}$"
+ACH_4a = " (n: "+str(home_ACH_summary["ACH_points"].iloc[3])+"; std: ±"+str(home_ACH_summary["ACH_std"].iloc[3])+")"
 
 
 fig = plt.figure(figsize=(10,6))
@@ -316,7 +327,7 @@ plt.style.use('ggplot') #'seaborn-notebook'
 
 
 plt.title('Diagnostic analytics to audit the passive builing performance',y=1.08,loc="left",fontsize=17, pad=15)
-plt.suptitle(BSOI_value, y=0.945, x=0.357,fontsize=15)
+plt.suptitle(BSOI_value, y=0.945, x=0.365,fontsize=15)
 
 plt.plot(df_home_1['grad'],df_home_1['Tout_Tint'],'o', alpha=0.2,color="royalblue")
 ax = plt.gca()
@@ -333,25 +344,29 @@ plt.xticks(np.arange(-7,8,1))
 plt.text(-6, 13, stage1 ,fontsize=15)
 plt.text(-6, 11, "Heat modulation" ,fontsize=13)
 plt.text(-6, 9, ACH_1 ,fontsize=13)
+plt.text(-6, 7, ACH_1a ,fontsize=11)
 
 plt.text(2.5, 13, stage2 ,fontsize=15)
 plt.text(2.5, 11, "Solar and heat gains (1/2)" ,fontsize=13)
 plt.text(2.5, 9, ACH_2 ,fontsize=13)
+plt.text(2.5, 7, ACH_2a ,fontsize=11)
 
 plt.text(2.5, -13, stage3 ,fontsize=15)
 plt.text(2.5, -15, "Solar and heat gains (2/2)" ,fontsize=13)
 plt.text(2.5, -17, ACH_3 ,fontsize=13)
+plt.text(2.5, -19, ACH_3a ,fontsize=11)
 
 
 plt.text(-6, -13, stage4 ,fontsize=15)
 plt.text(-6, -15, "Heat dissipation" ,fontsize=13)
 plt.text(-6, -17, ACH_4 ,fontsize=13)
+plt.text(-6, -19, ACH_4a ,fontsize=11)
 
 
 
 #ax.set_facecolor((0.95, 0.95, 0.95))
 #plt.margins(x=0.1)
-
+#plt.savefig("heat_balance_map.jpg", format='jpg')
 plt.show()
 
 
@@ -362,7 +377,7 @@ plt.show()
 # Figure 2. Violin plot of ACH rates
 
 
-plt.rcParams["figure.figsize"] = (4,6)
+plt.rcParams["figure.figsize"] = (2,4)
 data_violin=[df_home_2['ACH'].dropna()]
 labels=['Home']
 
@@ -376,7 +391,7 @@ bp = ax.violinplot(data_violin,showmedians=True)
 ax.set_xticks(np.arange(1, len(labels) + 1))
 ax.set_xticklabels(labels)
 ax.set_ylabel('ACH (h-1)')
-ax.set_title('Air Change Rate')
+ax.set_title('Distribution of ACH values')
 plt.yticks(np.arange(0,3,0.5))
 plt.show()
 
@@ -384,9 +399,9 @@ plt.show()
 
 #%%
 
-# Figure 3. Comparison of ACH points with CO2 concentrations throughout the monitored period
+# Figure 3. Comparison of ACH points with CO2 concentrations 
 
-df_home_3 = df_home_2.truncate(before='2021-06-11', after='2021-06-12')
+df_home_3 = df_home_2.truncate(before='2021-06-11', after='2021-08-31')
 
 fig, ax = plt.subplots(figsize =(10, 4))
 ax.set_title('Air Change Rate')

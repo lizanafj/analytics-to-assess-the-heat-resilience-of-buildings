@@ -1,6 +1,10 @@
 # Indicators to assess the heat resilience of buildings 🌞
 
-Novel diagnostic analytics to audit the passive building performance using real long-term monitoring data obtained through indoor and outdoor IoT sensors.
+Diagnostic analytics to audit the passive building performance using real long-term monitoring data obtained through indoor and outdoor IoT sensors.
+
+This approach is further detailed in the following scientific article: 
+
+  **López-García, E. et al. (2022) Monitoring and analytics to measure heat resilience and support passive building retrofit**
 
 ## Overview
 
@@ -13,9 +17,8 @@ Second, the indoor environment is diagnosed through a heat balance map that divi
 Third, the air changes (ACH), associated with ventilation and infiltration per thermal stage, are calculated using the CO2-based decay method. 
 
 
-More information about this approach is detaled in the following scientific article: 
 
-**reference**
+
 
 
 

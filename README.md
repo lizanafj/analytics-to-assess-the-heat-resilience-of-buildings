@@ -8,7 +8,7 @@ This approach is further detailed in the following scientific article:
 
 ## Overview
 
-The diagnostic analytics characterise the indoor overheating situation and identify passive cooling opportunities to improve the building performance. The approach is based on three methods. 
+These diagnostic analytics characterise the indoor overheating situation of buildings and identify passive cooling opportunities. The approach is based on three methods. 
 
 First, the overheating situation in the indoor environment is characterised by a seasonal building overheating index (SBOI) ranging from 0% to 100%. 
 
@@ -47,9 +47,9 @@ Third, run the three methods using the functions defined here:
 	-diagnostic indicators.py
 
 
-### 1. Analysis of the overheating situation - Seasonal building overheating index (SBOI): 
+### 1. Analysis of the overheating situation of building - Seasonal building overheating index (SBOI): 
 
-In a well-designed building scenario, SBOI should be closer to 0% (Fig. a).
+In a well-designed building, SBOI should be closer to 0% (Fig. a).
 
 In an overheated indoor environment, SBOI can show different scenarios (Fig. b): 
 
@@ -76,7 +76,7 @@ These stages can be labelled according to the three main action groups for the p
 ![CSV example](https://github.com/lizanafj/Indicators-to-assess-the-heat-resilience-of-buildings/blob/master/resources/2_Thermalbuildingstages.jpg )
 
 
-### 3. Analysis of air change rates (ACH, h-1) through CO2-based decay method
+### 3. Analysis of air change rates (ACH, h-1) through the CO2-based decay method
 
 This method uses indoor CO2 concentrations in the indoor environment to calculate the air change rate (ACH, h-1) related to ventilation and air infiltration.
 

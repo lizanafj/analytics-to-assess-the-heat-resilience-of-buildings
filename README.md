@@ -1,4 +1,4 @@
-# Diagnostic analytics to assess the heat resilience of buildings 🌞
+# Analytics to assess the heat resilience of buildings 🌞
 
 Diagnostic analytics to audit the passive building performance using real long-term monitoring data obtained through indoor and outdoor IoT sensors.
 

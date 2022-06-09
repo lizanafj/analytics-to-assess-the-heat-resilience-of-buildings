@@ -4,7 +4,7 @@ Diagnostic analytics to audit the passive building performance using real long-t
 
 This approach is further detailed in the following scientific article: 
 
-  **López-García, E. et al. (2022) Monitoring and analytics to measure heat resilience and support passive building retrofit**
+  **E. López-García, J. Lizana, A. Serrano-Jiménez, Carmen Díaz-López and Á. Barrios-Padura (2022) Monitoring and analytics to measure heat resilience of buildings and support retrofitting by passive cooling**
 
 ## Overview
 
